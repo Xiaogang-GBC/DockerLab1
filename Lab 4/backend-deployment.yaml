@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ethereum-backend-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ethereum-backend
+  template:
+    metadata:
+      labels:
+        app: ethereum-backend
+    spec:
+      containers:
+      - name: ethereum-backend
+        image: 0xdong/myfirstapp
+        ports:
+        - containerPort: 80

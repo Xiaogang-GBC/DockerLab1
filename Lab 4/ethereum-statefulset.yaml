@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ethereum-statefulset
+spec:
+  serviceName: "ethereum-backend"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ethereum-backend
+  template:
+    metadata:
+      labels:
+        app: ethereum-backend
+    spec:
+      containers:
+      - name: ethereum
+        image: 0xdong/myfirstapp
+        ports:
+        - containerPort: 30303
+        volumeMounts:
+        - name: ethereum-storage
+          mountPath: /var/ethereum
+  volumeClaimTemplates:
+  - metadata:
+      name: ethereum-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
